@@ -68,6 +68,7 @@ pinyin:
 algebra:
   core:                                           # 核心单字
     __append:
+      - derive/^([A-Z])/\L$1/
       #- derive|^(\w)(\w)\[(\w)(\w)$|$1$2$3$4|     # 匹配4码
       #- derive|^(\w)(\w)\[(\w)(\d)$|$1$2$3|       # 匹配3码
       #- derive|^(\w)(\w)\[(\d)(\d)$|$1$2|         # 匹配2码
@@ -147,6 +148,7 @@ switches_engine_table:
       - selector                                    # 选字和换页功能
       - navigator                                   # 移动插入点
       - express_editor                              # 空格确认当前输入，其他字符直接上屏
+      - lua_processor@*hertz.tiger_pin*pin_processor
     segmentors:
       - ascii_segmentor
       - matcher
@@ -178,6 +180,7 @@ switches_engine_table:
       - lua_translator@*hertz.time_translator       # 时间
       - lua_translator@*hertz.lunar_translator      # 农历
       - lua_translator@*hertz.number_translator     # 数字
+      - lua_translator@*hertz.tiger_pin*panacea_translator
     filters:
       - lua_filter@*hertz.charset_filter            # 字集过滤
       - lua_filter@*hertz.mark_phrase_filter        # 标记词组
@@ -189,6 +192,7 @@ switches_engine_table:
       - uniquifier                                  # 过滤重复的候选字，可能来自简繁转换
       - lua_filter@*hertz.easy_en*enhance_filter    # 英文增强
       - lua_filter@*hertz.embeded_cands@embeded_cands
+      - lua_filter@*hertz.tiger_pin*pin_filter
 
 switches_engine_script:
   switches:
@@ -205,6 +209,7 @@ switches_engine_script:
       - selector                                    # 选字和换页功能
       - navigator                                   # 移动插入点
       - express_editor                              # 空格确认当前输入，其他字符直接上屏
+      - lua_processor@*hertz.tiger_pin*pin_processor
     segmentors:
       - ascii_segmentor
       - matcher
@@ -236,6 +241,7 @@ switches_engine_script:
       - lua_translator@*hertz.time_translator       # 时间
       - lua_translator@*hertz.lunar_translator      # 农历
       - lua_translator@*hertz.number_translator     # 数字
+      - lua_translator@*hertz.tiger_pin*panacea_translator
     filters:
       - lua_filter@*hertz.charset_filter            # 字集过滤
       - lua_filter@*hertz.mark_phrase_filter        # 标记词组
@@ -246,6 +252,7 @@ switches_engine_script:
       #- lua_filter@*hertz.inline_candidate_filter   # 部件内嵌
       - uniquifier                                  # 过滤重复的候选字，可能来自简繁转换
       - lua_filter@*hertz.easy_en*enhance_filter    # 英文增强
+      - lua_filter@*hertz.tiger_pin*pin_filter
 
 keys:
   emacs_mode:
@@ -468,6 +475,27 @@ hertz:
     db: predict.db
     max_candidates: 999
     max_iterations: 999
+  tiger:
+    # 「置頂」功能相關設置
+    # 輸入時通過快捷鍵 Ctrl+t 可以將高亮顯示的候選置頂，被置頂的候選位置固定，不再參與調頻
+    # 對同一輸入碼最高支持8個置頂詞，當嘗試置頂第9個詞時，最早被置頂的詞將會失效
+    pin:
+      # 「置頂」功能開關
+      enable: true
+      # 置頂詞提示符
+      indicator: "📌"
+      # 「萬靈藥」加詞功能
+      # 通過輸入 「編碼A」@「編碼B」 實現造詞功能，編碼A是這個新詞的新編碼 編碼B是目前可以打出該詞的編碼
+      # 例如 輸入 tnfb 不能得到「頭腦風暴」這一候選， 此時我們可以輸入 tnfb@tbnkfgbk 按下空格 讓「頭腦風暴」候選上屏，上屏的詞會被加入用戶詞庫中，之後我們可以用 tnfb 來得到「頭腦風暴」這一候選了
+      # 造出的詞與置頂詞是等同的
+      panacea:
+        # 加詞狀態提示
+        prompt: "〔加词〕"
+        # 加詞中綴引導符
+        infix: "@"
+        # 自由加詞模式開關，開啓此模式後，輸入「編碼A」@並空格上屏後會進入加詞狀態，此時可以連續地、不受束縛地輸入，再次按下x@空格退出加詞狀態，期間輸入的內容將會被記錄爲「編碼A」的新置頂詞
+        # 此模式適合造一些混合詞，如「A4紙」、「KOS-MOS」等
+        freestyle: true
 
 switches_list:
   - name: ascii_mode

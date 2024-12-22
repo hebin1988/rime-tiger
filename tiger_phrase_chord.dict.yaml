@@ -1,0 +1,44 @@
+# Rime dictionary: tiger_phrase_chord
+# encoding: utf-8
+# CC-BY-4.0
+
+---
+name: tiger_phrase_chord
+version: "2024-12-22"
+sort: by_weight
+import_tables:
+  - dicts/tiger_core   # 虎码11w+单字
+...
+
+，	,
+。	.
+？	?
+！	!
+……	^
+”	"
+“	'
+：	:
+￥	$
+～	~
+％	%
+＆	&
+＊	*
+（	(
+）	)
+＋	+
+－	-
+＝	=
+；	;
+、	\
+《	<
+》	>
+1	1
+2	2
+3	3
+4	4
+5	5
+6	6
+7	7
+8	8
+9	9
+0	0

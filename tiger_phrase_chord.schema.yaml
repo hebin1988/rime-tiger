@@ -15,20 +15,20 @@ schema:
     - japanese
     - tiger_codes
     - tiger_oni
-    - tiger_phrase
+    - tiger_phrases
   description: |
-    虎码单字五三顶
-  name: "🐯字·五三顶"
-  schema_id: tiger_code_53p
-  version: "2024-12-14"
+    赫兹虎单整句·并击
+  name: "🐯句·单·并击"
+  schema_id: tiger_phrase_chord
+  version: "2024-12-22"
 
 __patch:
-  - tiger_code_52p.custom:/patch?
-  - engine/processors/@before 4: lua_processor@*hertz.key_binder
-  - engine/processors/@before 5: lua_processor@*hertz.popping
+  - tiger_phrase_chord.custom:/patch?
+  - engine/processors/@before 4: lua_processor@*hertz.chord_composer_processor
   - engine/filters/@next: simplifier@chinese_english
+  - engine/filters/@next: lua_filter@*hertz.tiger_spelling*filter
 
-__include: tiger:/switches_engine_table        # Rime模块
+__include: tiger:/switches_engine_script       # Rime模块
 __include: tiger:/fast_symbol_translator       # 快符
 __include: tiger:/easy_en_translator           # 英文
 __include: tiger:/japanese_translator          # 日文
@@ -47,74 +47,67 @@ __include: tiger:/embeded_cands_filter         # 候选嵌入
 __include: tiger:/hertz                        # Hertz定制
 
 speller:
-  #auto_clear: max_length
-  #auto_select: true
-  max_code_length: 4
-  popping:
-    - match: "[a-z]{4}"
-      accept: "[^ 2345]"
-      prefix: 3
-  alphabet: "qwertyuoipasdfghjklzxcvbnm"
-  #auto_select_pattern: ^;.$ # |^\w{4}$
+  alphabet: qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890:,.?!^'"$~%&*()+-=\;
+  delimiter: "_"
   algebra:
     __patch:
       - tiger:/algebra/core        # 核心拼算
-  #    #- tiger:/algebra/wildcard?   # 通配拼算
-  #    - tiger:/algebra/erase       # 擦除编码
+      #- tiger:/algebra/phrase      # 整句拼算
+      - tiger:/algebra/erase       # 擦除编码
 
 translator:
-  dictionary: tiger_code
+  dictionary: tiger_phrase_chord
   enable_user_dict: false
-  enable_charset_filter: true
-  enable_encoder: true
+  enable_charset_filter: false
+  enable_encoder: false
   enable_sentence: false
-  encode_commit_history: true
-  enable_completion: true
+  encode_commit_history: false
+  enable_completion: false
+  preedit_format:
+    # 手动分词标记
+    - xform/([a-z]{4})[']/$1⁴/
+    - xform/([a-z]{3})[']/$1³/
+    - xform/([a-z]{2})[']/$1²/
+    - xform/([a-z]{1})[']/$1¹/
+    # 自动分词标记
+    - xform/([a-z]{1,4})[_]/$1␣/
+    # 其余处理
+    - xform/([A-Z])/\L$1/
+    - xform/([¹²³⁴][a-z]+)[_']/$1/
+    - xform/([¹²³⁴])_/$1/
+    - xform/_/␣/
+    #- xlit/ABCDEFGHIJKLMNOPQRSTUVWXYZ/ạḅċḍẹḟġḥịĵḳḷṃṇọṗꝗṛṣṭụṿẉẋỵẓ/
+    #- xlit/ABCDEFGHIJKLMNOPQRSTUVWXYZ/ⓐⓑⓒⓓⓔⓕⓖⓗⓘⓙⓚⓛⓜⓝⓞⓟⓠⓡⓢⓣⓤⓥⓦⓧⓨⓩ/
 
 key_binder:
   import_preset: default
   custom_bindings:
     __append:
       # 在這裏添加只在本方案中生效的按鍵綁定
-  popping:
-    #- match: "[a-z]{4}"
-    #  accept: "j"
-    #  send_sequence: "{Left}{Left}{Left}{space}{space}"
-    #- match: "[a-z]{4}"
-    #  accept: "k"
-    #  send_sequence: "{Left}{Left}{space}{space}"
-    #- match: "[a-z]{4}"
-    #  accept: "l"
-    #  send_sequence: "{Left}{space}{space}"
-    #- when: has_menu
-    #  accept: ;
-    #  send: '2'
-    #- when: has_menu
-    #  accept: "'"
-    #  send: '3'
-    #- when: has_menu
-    #  accept: "["
-    #  send: '4'
-    #- when: has_menu
-    #  accept: "]"
-    #  send: '5'
   bindings:
     __patch:
       - :/key_binder/custom_bindings?
       - tiger:/keys/emacs_mode
       - tiger:/keys/tab
       - tiger:/keys/page_up_down
-      - tiger:/keys/selector
+      #- tiger:/keys/selector
       - tiger:/keys/options_toggle
 
-__include: tiger:/rec
+#__include: tiger:/rec
+recognizer:
+  import_preset: default
+  patterns:
+    punct: '^/([0-9]0?|[A-Za-z]+)$'
+    #radical_flypy: "^R[a-z]*`?$"
+    reverse_lookup: "^`[a-z]*'?$"
+    expression: '^=.*$'
 
 punctuator:
   #import_preset:
   __include: tiger:/punctuator
 
 # 默认启用语言模型
-__include: tiger:/octagram/enable_for_chars
+#__include: tiger:/octagram/enable_for_chars
 # 若要禁用，可直接注释掉上面的 __include
 
 tiger_spelling:
@@ -123,4 +116,25 @@ tiger_spelling:
     cycle_key: "Shift+Control+C"
 schema_name:
   spelling: tiger_spelling_pseudo
-  code: tiger_code_53p
+  code: tiger_phrase_chord
+
+menu:
+  page_size: 1
+
+chord_composer:
+  use_ctrl: false
+  use_alt: false
+  use_shift: false
+  use_super: false
+  use_caps: false
+  finish_trigger_release_num: 999
+  finish_chord_on_first_key_release: false
+  alphabet: qazwsxedcrfvtgbyhnujmikolp
+
+  algebra:
+    - xform=([qwertasdgzxcvb])j=\U$1=
+    - xform=f([yuiophklnm])=\U$1=
+    - xform=df=F=
+    - xform=jk=J=
+    
+    

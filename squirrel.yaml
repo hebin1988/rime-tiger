@@ -47,8 +47,8 @@ style:
   text_orientation: horizontal   # horizontal | vertical
   layout:
     margin_y: 12
-    shadow_offset_x: "3"
-    shadow_offset_y: "3"
+    shadow_offset_x: "5"
+    shadow_offset_y: "5"
     border: 1
     hilite_padding: 5
     min_height: 0
@@ -88,13 +88,13 @@ preset_color_schemes:
     inline_preedit: false
     translucency: true
     mutual_exclusive: true
-    corner_radius: 8
+    corner_radius: 8.0
     hilited_corner_radius: 6.0
     border_height: -1
-    border_width: 3
+    border_width: -1
     line_spacing: 3
     alpha: 1
-    shadow_size: 3.0
+    shadow_size: 2.0
     color_space: display_p3
     text_color: 0xf2747474
     back_color: 0xdaf4f4f4

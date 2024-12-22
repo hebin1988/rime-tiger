@@ -56,9 +56,9 @@ speller:
       prefix: 2
   alphabet: "qwertyuoipasdfghjklzxcvbnm"
   #auto_select_pattern: ^;.$ # |^\w{4}$
-  #algebra:
-  #  __patch:
-  #    #- tiger:/algebra/core        # 核心拼算
+  algebra:
+    __patch:
+      - tiger:/algebra/core        # 核心拼算
   #    #- tiger:/algebra/wildcard?   # 通配拼算
   #    - tiger:/algebra/erase       # 擦除编码
 

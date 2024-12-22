@@ -252,3 +252,5 @@ https://github.com/user-attachments/assets/11aebd07-cb3a-4520-ad57-c21defc1cdaf
 2. 创建特性分支
 3. 提交更改
 4. 发起 Pull Request
+
+[![Star History Chart](https://api.star-history.com/svg?repos=rimeinn/rime-tiger&type=Date)](https://star-history.com/#rimeinn/rime-tiger&Date)
