@@ -72,7 +72,8 @@ translator:
     # 自动分词标记
     - xform/([a-z]{1,4})[_]/$1␣/
     # 其余处理
-    - xform/([A-Z])/\L$1/
+    #- xform/([A-Z])/\L$1/
+    - xform/([A-Z])/$1°/  # 并击提示符，可选 ° ∞ ᵆ ʬ ˜ 
     - xform/([¹²³⁴][a-z]+)[_']/$1/
     - xform/([¹²³⁴])_/$1/
     - xform/_/␣/
@@ -128,13 +129,16 @@ chord_composer:
   use_super: false
   use_caps: false
   finish_trigger_release_num: 999
-  finish_chord_on_first_key_release: false
-  alphabet: qazwsxedcrfvtgbyhnujmikolp
+  finish_chord_on_first_key_release: true
+  alphabet: qazwsxedcrfvtgbyhnujmikolp `
+  #alphabet: qazwsxedcrfvtgbyhnujmik,ol.p;/ `
 
   algebra:
-    - xform=([qwertasdgzxcvb])j=\U$1=
-    - xform=f([yuiophklnm])=\U$1=
-    - xform=df=F=
-    - xform=jk=J=
-    
-    
+    #- xlit|;,./|ACXZ|
+    - xlit| |一| # 主空格
+    - xform=([qwertasdfgzxcvb])一=\U$1=
+    - xform=([yuiophjklnm])一=\U$1=
+
+    - xform|^一|1|
+
+    - xform/1/ /

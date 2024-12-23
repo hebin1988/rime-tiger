@@ -193,6 +193,7 @@ switches_engine_table:
       - lua_filter@*hertz.easy_en*enhance_filter    # 英文增强
       - lua_filter@*hertz.embeded_cands@embeded_cands
       - lua_filter@*hertz.tiger_pin*pin_filter
+      - lua_filter@*hertz.prompt_filter
 
 switches_engine_script:
   switches:
@@ -253,7 +254,7 @@ switches_engine_script:
       - uniquifier                                  # 过滤重复的候选字，可能来自简繁转换
       - lua_filter@*hertz.easy_en*enhance_filter    # 英文增强
       - lua_filter@*hertz.tiger_pin*pin_filter
-
+      - lua_filter@*hertz.prompt_filter
 keys:
   emacs_mode:
     __append:
