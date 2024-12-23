@@ -257,20 +257,20 @@ switches_engine_script:
 keys:
   emacs_mode:
     __append:
-      - { when: composing, accept: Control+p, send: Up }
-      - { when: composing, accept: Control+n, send: Down }
-      - { when: composing, accept: Control+b, send: Left }
-      - { when: composing, accept: Control+f, send: Right }
-      - { when: composing, accept: Control+a, send: Home }
-      - { when: composing, accept: Control+e, send: End }
-      - { when: composing, accept: Control+d, send: Delete }
-      - { when: composing, accept: Control+k, send: Shift+Delete }
-      - { when: composing, accept: Control+h, send: BackSpace }
-      - { when: composing, accept: Control+g, send: Escape }
-      - { when: composing, accept: Control+bracketleft, send: Escape }
-      - { when: composing, accept: Control+y, send: Page_Up }
-      - { when: composing, accept: Alt+v, send: Page_Up }
-      - { when: composing, accept: Control+v, send: Page_Down }
+      - { when: composing, accept: Control+p, send: Up }           # 上
+      - { when: composing, accept: Control+n, send: Down }         # 下
+      - { when: composing, accept: Control+b, send: Left }         # 左
+      - { when: composing, accept: Control+f, send: Right }        # 右
+      - { when: composing, accept: Control+a, send: Home }         # 首
+      - { when: composing, accept: Control+e, send: End }          # 尾
+      - { when: composing, accept: Control+d, send: Delete }       # 向右删除
+      - { when: composing, accept: Control+h, send: BackSpace }    # 向左删除
+      - { when: composing, accept: Control+k, send: Shift+Delete } # 删除用户词
+      - { when: composing, accept: Control+g, send: Escape }       # 清屏
+      #- { when: composing, accept: Control+bracketleft, send: Escape }
+      #- { when: composing, accept: Control+y, send: Page_Up }
+      #- { when: composing, accept: Alt+v, send: Page_Up }
+      #- { when: composing, accept: Control+v, send: Page_Down }
   tab:
     __append:
       - { when: has_menu, accept: "Tab", send: "Control+Right" }
@@ -284,8 +284,6 @@ keys:
   selector:
     __append:
       - { when: has_menu, accept: semicolon, send: KP_2 }  # 分号次选
-      #- { when: has_menu, accept: apostrophe, send: KP_3 } # 引号三选
-      #- { when: composing, accept: Tab, send: Escape }     # tab清屏
   options_toggle:
     __append:
       - { when: has_menu, accept: "/", toggle: tiger_spelling.off }          # 四重注解

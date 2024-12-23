@@ -38,8 +38,8 @@ switcher:
   option_list_separator: '／'
 
 menu:
-  alternative_select_labels: [ ⑴, ⑵, ⑶, ⑷, ⑸, ⑹, ⑺, ⑻, ⑼, ⑽ ]
-  #alternative_select_labels: [ 〡, 〢, 〣, 〤, 〥, 〦, 〧, 〨, 〩, 〸 ]
+  #alternative_select_labels: [ ⑴, ⑵, ⑶, ⑷, ⑸, ⑹, ⑺, ⑻, ⑼, ⑽ ]
+  alternative_select_labels: [ 〡, 〢, 〣, 〤, 〥, 〦, 〧, 〨, 〩, 〸 ]
   #alternative_select_labels: [ α, β, γ, δ, ε, ζ, η, θ, ι, κ ]
   page_size: 5
 
@@ -65,7 +65,7 @@ recognizer:
 ascii_composer:
   good_old_caps_lock: true
   switch_key:
-    Caps_Lock: clear
+    Caps_Lock: noop
     Control_L: noop
     Control_R: noop
     Eisu_toggle: clear
