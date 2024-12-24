@@ -24,7 +24,7 @@ schema:
 
 __patch:
   - tiger_phrase_chord.custom:/patch?
-  - engine/processors/@before 4: chord_composer
+  - engine/processors/@before 2: chord_composer
   #- engine/processors/@before 4: lua_processor@*hertz.chord_composer_processor
   - engine/filters/@next: simplifier@chinese_english
   - engine/filters/@next: lua_filter@*hertz.tiger_spelling*filter
