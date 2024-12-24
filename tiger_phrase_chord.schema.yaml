@@ -17,14 +17,15 @@ schema:
     - tiger_oni
     - tiger_phrases
   description: |
-    赫兹虎单整句·并击
+    赫兹虎单整句·并击·手机勿用
   name: "🐯句·单·并击"
   schema_id: tiger_phrase_chord
   version: "2024-12-22"
 
 __patch:
   - tiger_phrase_chord.custom:/patch?
-  - engine/processors/@before 4: lua_processor@*hertz.chord_composer_processor
+  - engine/processors/@before 4: chord_composer
+  #- engine/processors/@before 4: lua_processor@*hertz.chord_composer_processor
   - engine/filters/@next: simplifier@chinese_english
   - engine/filters/@next: lua_filter@*hertz.tiger_spelling*filter
 
@@ -47,8 +48,8 @@ __include: tiger:/embeded_cands_filter         # 候选嵌入
 __include: tiger:/hertz                        # Hertz定制
 
 speller:
-  alphabet: qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890:,.?!^'"$~%&*()+-=\;
-  delimiter: "_"
+  alphabet: QWERTYUIOPASDFGHJKL:ZXCVBNM<>?qwertyuiopasdfghjkl;zxcvbnm,./%~@*&_"|+^\`'!#$()[]{}-=1234567890
+  delimiter: "_`"
   algebra:
     __patch:
       - tiger:/algebra/core        # 核心拼算
@@ -123,22 +124,160 @@ menu:
   page_size: 1
 
 chord_composer:
-  use_ctrl: false
-  use_alt: false
-  use_shift: false
-  use_super: false
-  use_caps: false
-  finish_trigger_release_num: 999
+  #use_ctrl: false
+  #use_alt: false
+  #use_shift: false
+  #use_super: false
+  #use_caps: false
+  #finish_trigger_release_num: 999
   finish_chord_on_first_key_release: true
-  alphabet: qazwsxedcrfvtgbyhnujmikolp `
-  #alphabet: qazwsxedcrfvtgbyhnujmik,ol.p;/ `
+  #alphabet: qazwsxedcrfvtgbyhnujmikolp `
+  alphabet: qazwsxedcrfvtgb12345yhnujmik,ol.p;/67890 `
 
-  algebra:
-    #- xlit|;,./|ACXZ|
-    - xlit| |一| # 主空格
-    - xform=([qwertasdfgzxcvb])一=\U$1=
-    - xform=([yuiophjklnm])一=\U$1=
+  algebra:  # 来自猫师自然码并击指法
+    - xlit|;,./|ACXZ|  # 符号映射为大写字母，分离其转义干扰
+    - xlit| |一|  # 主空格
+    - xform/^([qwertasdfgzxcvb12345]+)([一]*)$/$1$2/  # 处理左手击的表示
+    - xform/^([yuiophjklAnmCXZ67890]+)([一]*)$/$1$2/  # 处理右手击的表示
+    - xform/^([qwertasdfgzxcvb12345]+)([yuiophjklAnmCXZ67890]+)([一]*)$/$1$2$3/  # 合并单手击的表示
 
-    - xform|^一|1|
+    - xform/([qwertasdfgzxcvb12345]+)/<$1>/  # 左手编码包装
+    - xform/([yuiophjklAnmCXZ67890]+)/<$1>/  # 右手编码包装
+    - xform/([一]+)/<$1>/  # 空格区编码包装
 
-    - xform/1/ /
+    - xform=(<zv>|<mZ>)=Q=
+    - xform=(<wv>|<no>)=W=
+    - xform=(<ev>|<ni>)=E=
+    - xform=(<et>|<yi>)=R=
+    - xform=(<qt>|<yp>)=T=
+    - xform=(<wt>|<yo>)=Y=
+    - xform=(<af>|<jA>)=U=
+    - xform=(<xv>|<mX>)=I=
+    - xform=(<aw>|<oA>)=O=
+    - xform=(<qf>|<jp>)=P=
+    - xform=(<wer>|<uio>)=/=
+    - xform=(<qwe>|<iop>)=\=
+    - xform=(<rt>|<yu>)=[=
+    - xform=(<ert>|<yui>)=]=
+
+    - xform=(<av>|<nA>)=A=
+    - xform=(<sv>|<nl>)=S=
+    - xform=(<dv>|<nk>)=D=
+    - xform=(<sg>|<hl>)=F=
+    - xform=(<dg>|<hk>)=G=
+    - xform=(<ar>|<uA>)=H=
+    - xform=(<xf>|<jX>)=J=
+    - xform=(<xc>|<CX>)=K=
+    - xform=(<sr>|<ul>)=L=
+    - xform=(<dc>|<mk>)=~=
+    - xform=(<fv>|<nj>)=|=
+    - xform=(<fg>|<hj>)=(=
+    - xform=(<dfg>|<hjk>)=)=
+
+    - xform=(<zf>|<jZ>)=Z=
+    - xform=(<xd>|<kX>)=X=
+    - xform=(<xb>|<nX>)=C=
+    - xform=(<zs>|<lZ>)=V=
+    - xform=(<qw>|<op>)=B=
+    - xform=(<se>|<il>)=N=
+    - xform=(<wd>|<ko>)=M=
+    - xform=(<at>|<yA>)=<=
+    - xform=(<ag>|<hA>)=>=
+    - xform=(<zx>|<XZ>)=@=
+    - xform=(<vb>|<nm>)=$=
+
+    - xform=(<q>|<p>)=q=
+    - xform=(<w>|<o>)=w=
+    - xform=(<e>|<i>)=e=
+    - xform=(<r>|<u>)=r=
+    - xform=(<t>|<y>)=t=
+    - xform=(<ef>|<ji>)=y=
+    - xform=(<er>|<ui>)=u=
+    - xform=(<we>|<io>)=i=
+    - xform=(<wr>|<uo>)=o=
+    - xform=(<qr>|<up>)=p=
+    - xform=(<qe>|<ip>)=%=
+    - xform=(<wg>|<ho>)=-=
+    - xform/(<qg>|<hp>)/=/
+
+    - xform=(<a>|<A>)=a=
+    - xform=(<s>|<l>)=s=
+    - xform=(<d>|<k>)=d=
+    - xform=(<f>|<j>)=f=
+    - xform=(<g>|<h>)=g=
+    - xform=(<wf>|<jo>)=h=
+    - xform=(<df>|<jk>)=j=
+    - xform=(<sd>|<kl>)=k=
+    - xform=(<sf>|<jl>)=l=
+    - xform=(<as>|<lA>)=:=
+    - xform=(<ad>|<kA>)=;=
+    - xform=(<asd>|<klA>)='=
+    - xform=(<adf>|<jkA>)="=
+    - xform=(<rf>|<uj>)=_=
+    - xform=(<rg>|<hu>)={=
+    - xform=(<eg>|<hi>)=}=
+
+    - xform=(<z>|<Z>)=z=
+    - xform=(<x>|<X>)=x=
+    - xform=(<c>|<C>)=c=
+    - xform=(<v>|<m>)=v=
+    - xform=(<b>|<n>)=b=
+    - xform=(<sc>|<Cl>)=n=
+    - xform=(<cv>|<mC>)=m=
+    - xform=(<sdf>|<jkl>)=,=
+    - xform=(<wef>|<jio>)=.=
+    - xform=(<sef>|<jil>)=!=
+    - xform=(<zb>|<nZ>)=?=
+    - xform=(<zc>|<CZ>)=#=
+    - xform=(<zxc>|<CXZ>)=*=
+    - xform=(<xcv>|<mCX>)=&=
+    - xform=(<cvb>|<nmC>)=+=
+
+    - xform=(<1>)=1=
+    - xform=(<2>)=2=
+    - xform=(<3>)=3=
+    - xform=(<4>)=4=
+    - xform=(<5>)=5=
+    - xform=(<35>)=6=
+    - xform=(<34>)=7=
+    - xform=(<23>)=8=
+    - xform=(<24>)=9=
+    - xform=(<14>)=0=
+    - xform=(<12>)=^=
+    - xform=(<13>)=`=
+
+    - xform=(<6>)=5=
+    - xform=(<7>)=4=
+    - xform=(<8>)=3=
+    - xform=(<9>)=2=
+    - xform=(<0>)=1=
+    - xform=(<68>)=6=
+    - xform=(<78>)=7=
+    - xform=(<89>)=8=
+    - xform=(<79>)=9=
+    - xform=(<70>)=0=
+    - xform=(<90>)=^=
+    - xform=(<80>)=`=
+
+    #- xform|(.)_<一>|<"1>$1_|
+    #- xform|_(.)<一>|<"1>_$1|
+    #- xform|(..)<一>|<"1>$1|
+    - xform|^<一>|<1>|
+
+    - xform/<1>/ /
+    - xform/<"1>/"/
+
+    - xform/^.*<.+>.*$//
+
+  #  - xform=，="""",=
+  #  - xform=。="""".=
+  #  - xform=！=""""!=
+  #  - xform=？=""""?=
+
+  #prompt_format:
+  #  # 码元显示效果修正
+  #  - xform/"""",$/，/
+  #  - xform/""""\.$/。/
+  #  - xform/""""!$/！/
+  #  - xform/""""\?$/？/
+

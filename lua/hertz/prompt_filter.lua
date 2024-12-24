@@ -4,8 +4,7 @@
 
 local function F(input, env)
     schema_name = env.engine.schema.config:get_string("schema/name")
-    local ctx = env.engine.context
-    local segment = ctx.composition:back()
+    local segment = env.engine.context.composition:back()
     
     if segment then
         segment.prompt = "    [ " .. schema_name .. " ]"
