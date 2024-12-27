@@ -48,7 +48,7 @@ __include: tiger:/embeded_cands_filter         # 候选嵌入
 __include: tiger:/hertz                        # Hertz定制
 
 speller:
-  alphabet: QWERTYUIOPASDFGHJKL:ZXCVBNM<>?qwertyuiopasdfghjkl;zxcvbnm,./%~@*&_"|+^\`'!#$()[]{}-=1234567890
+  alphabet: QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm;':"<>?,./~!@#$%^&*()_+-=[]\{}|1234567890
   delimiter: "_`"
   algebra:
     __patch:
@@ -108,10 +108,6 @@ punctuator:
   #import_preset:
   __include: tiger:/punctuator
 
-# 默认启用语言模型
-#__include: tiger:/octagram/enable_for_chars
-# 若要禁用，可直接注释掉上面的 __include
-
 tiger_spelling:
   lua:
     switch_key: "Control+c"
@@ -130,21 +126,37 @@ chord_composer:
   #use_super: false
   #use_caps: false
   #finish_trigger_release_num: 999
-  finish_chord_on_first_key_release: true
+  #finish_chord_on_first_key_release: true
   #alphabet: qazwsxedcrfvtgbyhnujmikolp `
-  alphabet: qazwsxedcrfvtgb12345yhnujmik,ol.p;/67890 `
+  alphabet: qazwsxedcrfvtgbyhnujmik,ol.p;/ `
 
   algebra:  # 来自猫师自然码并击指法
     - xlit|;,./|ACXZ|  # 符号映射为大写字母，分离其转义干扰
     - xlit| |一|  # 主空格
-    - xform/^([qwertasdfgzxcvb12345]+)([一]*)$/$1$2/  # 处理左手击的表示
-    - xform/^([yuiophjklAnmCXZ67890]+)([一]*)$/$1$2/  # 处理右手击的表示
-    - xform/^([qwertasdfgzxcvb12345]+)([yuiophjklAnmCXZ67890]+)([一]*)$/$1$2$3/  # 合并单手击的表示
+    - xform/^([qwertasdfgzxcvb]+)([一]*)$/$1$2/  # 处理左手击的表示
+    - xform/^([yuiophjklAnmCXZ]+)([一]*)$/$1$2/  # 处理右手击的表示
+    - xform/^([qwertasdfgzxcvb]+)([yuiophjklAnmCXZ]+)([一]*)$/$1$2$3/  # 合并单手击的表示
 
-    - xform/([qwertasdfgzxcvb12345]+)/<$1>/  # 左手编码包装
-    - xform/([yuiophjklAnmCXZ67890]+)/<$1>/  # 右手编码包装
+    - xform/([qwertasdfgzxcvb]+)/<$1>/  # 左手编码包装
+    - xform/([yuiophjklAnmCXZ]+)/<$1>/  # 右手编码包装
     - xform/([一]+)/<$1>/  # 空格区编码包装
+    
+    # 数字
+    - xform=(<a><一>|<A><一>)=1=
+    - xform=(<s><一>|<l><一>)=2=
+    - xform=(<d><一>|<k><一>)=3=
+    - xform=(<f><一>|<j><一>)=4=
+    - xform=(<g><一>|<h><一>)=5=
+    - xform=(<q><一>|<p><一>)=6=
+    - xform=(<w><一>|<o><一>)=7=
+    - xform=(<e><一>|<i><一>)=8=
+    - xform=(<r><一>|<u><一>)=9=
+    - xform=(<t><一>|<y><一>)=0=
 
+    # 彩蛋
+    - xform=<z><Z><一>=VhuZhhYjvJuLfWbeOFJgBdMUDVwYjvJuXtWnjLfWbe,WvIgdJdkRZhhMnUGgAbhImiMnXSwSyEloFlpgUciEid,ITyMhUoJlhHnXuc\\OdoK\\LlUslKUYjvJuJefNj.=
+
+    # 字母
     - xform=(<zv>|<mZ>)=Q=
     - xform=(<wv>|<no>)=W=
     - xform=(<ev>|<ni>)=E=
@@ -233,39 +245,10 @@ chord_composer:
     - xform=(<xcv>|<mCX>)=&=
     - xform=(<cvb>|<nmC>)=+=
 
-    - xform=(<1>)=1=
-    - xform=(<2>)=2=
-    - xform=(<3>)=3=
-    - xform=(<4>)=4=
-    - xform=(<5>)=5=
-    - xform=(<35>)=6=
-    - xform=(<34>)=7=
-    - xform=(<23>)=8=
-    - xform=(<24>)=9=
-    - xform=(<14>)=0=
-    - xform=(<12>)=^=
-    - xform=(<13>)=`=
-
-    - xform=(<6>)=5=
-    - xform=(<7>)=4=
-    - xform=(<8>)=3=
-    - xform=(<9>)=2=
-    - xform=(<0>)=1=
-    - xform=(<68>)=6=
-    - xform=(<78>)=7=
-    - xform=(<89>)=8=
-    - xform=(<79>)=9=
-    - xform=(<70>)=0=
-    - xform=(<90>)=^=
-    - xform=(<80>)=`=
-
-    #- xform|(.)_<一>|<"1>$1_|
-    #- xform|_(.)<一>|<"1>_$1|
-    #- xform|(..)<一>|<"1>$1|
     - xform|^<一>|<1>|
 
     - xform/<1>/ /
-    - xform/<"1>/"/
+    #- xform/<"1>/"/
 
     - xform/^.*<.+>.*$//
 

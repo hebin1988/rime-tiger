@@ -7,7 +7,7 @@ name: tiger_phrase_chord
 version: "2024-12-22"
 sort: by_weight
 import_tables:
-  - dicts/tiger_core   # 虎码11w+单字
+  - dicts/hertz_tiger_chord   # 虎码11w+单字
 ...
 
 ，	,
@@ -29,9 +29,17 @@ import_tables:
 －	-
 ＝	=
 ；	;
+/	/
 、	\
 《	<
 》	>
+［	[
+］	]
+｛	{
+｝	}
+『	『
+』	』
+0	0
 1	1
 2	2
 3	3
@@ -41,4 +49,3 @@ import_tables:
 7	7
 8	8
 9	9
-0	0

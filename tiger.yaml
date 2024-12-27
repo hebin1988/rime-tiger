@@ -172,9 +172,9 @@ switches_engine_table:
       - table_translator@radical_flypy              # 部件拆字
       - table_translator@tiger_codes                # 官方虎词
       - table_translator@tiger_oni                  # 九重鬼虎
-      - table_translator@fast_symbol                # 码表转换-快符
       - script_translator@tiger_phrase              # 赫兹虎单整句
       - script_translator@tiger_phrases             # 官方虎词整句
+      - table_translator@fast_symbol                # 码表转换-快符
       - history_translator@input_history            # 输入历史
       - lua_translator@*hertz.calculator_translator # 计算器
       - lua_translator@*hertz.time_translator       # 时间
@@ -233,10 +233,10 @@ switches_engine_script:
       - table_translator@radical_flypy              # 部件拆字
       - table_translator@tiger_codes                # 官方虎词
       - table_translator@tiger_oni                  # 九重鬼虎
-      - table_translator@fast_symbol                # 码表转换-快符
       - script_translator@tiger_phrase              # 赫兹虎单整句
       - script_translator@tiger_phrases             # 官方虎词整句
       - script_translator                           # 码表转换
+      - table_translator@fast_symbol                # 码表转换-快符
       - history_translator@input_history            # 输入历史
       - lua_translator@*hertz.calculator_translator # 计算器
       - lua_translator@*hertz.time_translator       # 时间
