@@ -25,6 +25,7 @@ schema:
 __patch:
   - tiger_phrase_chord.custom:/patch?
   - engine/processors/@before 2: chord_composer
+  - engine/processors/@before 5: lua_processor@*hertz.jane_processor
   #- engine/processors/@before 4: lua_processor@*hertz.chord_composer_processor
   - engine/filters/@next: simplifier@chinese_english
   - engine/filters/@next: lua_filter@*hertz.tiger_spelling*filter
@@ -64,22 +65,22 @@ translator:
   enable_sentence: false
   encode_commit_history: false
   enable_completion: false
-  preedit_format:
-    # 手动分词标记
-    - xform/([a-z]{4})[']/$1⁴/
-    - xform/([a-z]{3})[']/$1³/
-    - xform/([a-z]{2})[']/$1²/
-    - xform/([a-z]{1})[']/$1¹/
-    # 自动分词标记
-    - xform/([a-z]{1,4})[_]/$1␣/
-    # 其余处理
-    #- xform/([A-Z])/\L$1/
-    - xform/([A-Z])/$1°/  # 并击提示符，可选 ° ∞ ᵆ ʬ ˜ 
-    - xform/([¹²³⁴][a-z]+)[_']/$1/
-    - xform/([¹²³⁴])_/$1/
-    - xform/_/␣/
-    #- xlit/ABCDEFGHIJKLMNOPQRSTUVWXYZ/ạḅċḍẹḟġḥịĵḳḷṃṇọṗꝗṛṣṭụṿẉẋỵẓ/
-    #- xlit/ABCDEFGHIJKLMNOPQRSTUVWXYZ/ⓐⓑⓒⓓⓔⓕⓖⓗⓘⓙⓚⓛⓜⓝⓞⓟⓠⓡⓢⓣⓤⓥⓦⓧⓨⓩ/
+  #preedit_format:
+  #  # 手动分词标记
+  #  - xform/([a-z]{4})[']/$1⁴/
+  #  - xform/([a-z]{3})[']/$1³/
+  #  - xform/([a-z]{2})[']/$1²/
+  #  - xform/([a-z]{1})[']/$1¹/
+  #  # 自动分词标记
+  #  - xform/([a-z]{1,4})[_]/$1␣/
+  #  # 其余处理
+  #  #- xform/([A-Z])/\L$1/
+  #  - xform/([A-Z])/$1°/  # 并击提示符，可选 ° ∞ ᵆ ʬ ˜ 
+  #  - xform/([¹²³⁴][a-z]+)[_']/$1/
+  #  - xform/([¹²³⁴])_/$1/
+  #  - xform/_/␣/
+  #  #- xlit/ABCDEFGHIJKLMNOPQRSTUVWXYZ/ạḅċḍẹḟġḥịĵḳḷṃṇọṗꝗṛṣṭụṿẉẋỵẓ/
+  #  #- xlit/ABCDEFGHIJKLMNOPQRSTUVWXYZ/ⓐⓑⓒⓓⓔⓕⓖⓗⓘⓙⓚⓛⓜⓝⓞⓟⓠⓡⓢⓣⓤⓥⓦⓧⓨⓩ/
 
 key_binder:
   import_preset: default
@@ -133,28 +134,44 @@ chord_composer:
   algebra:  # 来自猫师自然码并击指法
     - xlit|;,./|ACXZ|  # 符号映射为大写字母，分离其转义干扰
     - xlit| |一|  # 主空格
-    - xform/^([qwertasdfgzxcvb]+)([一]*)$/$1$2/  # 处理左手击的表示
-    - xform/^([yuiophjklAnmCXZ]+)([一]*)$/$1$2/  # 处理右手击的表示
+    - xform/^([qwertasdfgzxcvb]+)([一]*)$/$1_$2/  # 处理左手击的表示
+    - xform/^([yuiophjklAnmCXZ]+)([一]*)$/_$1$2/  # 处理右手击的表示
     - xform/^([qwertasdfgzxcvb]+)([yuiophjklAnmCXZ]+)([一]*)$/$1$2$3/  # 合并单手击的表示
 
     - xform/([qwertasdfgzxcvb]+)/<$1>/  # 左手编码包装
     - xform/([yuiophjklAnmCXZ]+)/<$1>/  # 右手编码包装
     - xform/([一]+)/<$1>/  # 空格区编码包装
     
-    # 数字
-    - xform=(<a><一>|<A><一>)=1=
-    - xform=(<s><一>|<l><一>)=2=
-    - xform=(<d><一>|<k><一>)=3=
-    - xform=(<f><一>|<j><一>)=4=
-    - xform=(<g><一>|<h><一>)=5=
-    - xform=(<q><一>|<p><一>)=6=
-    - xform=(<w><一>|<o><一>)=7=
-    - xform=(<e><一>|<i><一>)=8=
-    - xform=(<r><一>|<u><一>)=9=
-    - xform=(<t><一>|<y><一>)=0=
+    # 一简字
+    - xform=(<zv><一>|<mZ><一>)=Q_=
+    - xform=(<wv><一>|<no><一>)=W_=
+    - xform=(<ev><一>|<ni><一>)=E_=
+    - xform=(<et><一>|<ni><一>)=R_=
+    - xform=(<qt><一>|<yp><一>)=T_=
+    - xform=(<wt><一>|<yo><一>)=Y_=
+    - xform=(<af><一>|<jA><一>)=U_=
+    - xform=(<xv><一>|<mX><一>)=I_=
+    - xform=(<aw><一>|<oA><一>)=O_=
+    - xform=(<qf><一>|<jp><一>)=P_=
+    - xform=(<av><一>|<nA><一>)=A_=
+    - xform=(<sv><一>|<nl><一>)=S_=
+    - xform=(<dv><一>|<nk><一>)=D_=
+    - xform=(<sg><一>|<hl><一>)=F_=
+    - xform=(<dg><一>|<hk><一>)=G_=
+    - xform=(<ar><一>|<uA><一>)=H_=
+    - xform=(<xf><一>|<jX><一>)=J_=
+    - xform=(<xc><一>|<CX><一>)=K_=
+    - xform=(<sr><一>|<ul><一>)=L_=
+    - xform=(<zf><一>|<jZ><一>)=Z_=
+    - xform=(<xd><一>|<kX><一>)=X_=
+    - xform=(<xb><一>|<nX><一>)=C_=
+    - xform=(<zs><一>|<lZ><一>)=V_=
+    - xform=(<qw><一>|<op><一>)=B_=
+    - xform=(<se><一>|<il><一>)=N_=
+    - xform=(<wd><一>|<ko><一>)=M_=
 
     # 彩蛋
-    - xform=<z><Z><一>=VhuZhhYjvJuLfWbeOFJgBdMUDVwYjvJuXtWnjLfWbe,WvIgdJdkRZhhMnUGgAbhImiMnXSwSyEloFlpgUciEid,ITyMhUoJlhHnXuc\\OdoK\\LlUslKUYjvJuJefNj.=
+    - xform=<z><Z><一>=VhuZhhYjvJuLfWbeOFJgBdMUDVwYjvJuXtWnjLfWbe,WvIgdJdkRZhhMnUGgAbhImiMnXSwSyEloFlpgUciEid,ITyMhUoJlhHnXuc\\OdoK\\LlUslKUYjvJuJefNj=
 
     # 字母
     - xform=(<zv>|<mZ>)=Q=
@@ -245,22 +262,25 @@ chord_composer:
     - xform=(<xcv>|<mCX>)=&=
     - xform=(<cvb>|<nmC>)=+=
 
+    - xform|(.)_<一>|<"1>$1_|
+    - xform|_(.)<一>|<"1>_$1|
+    - xform|(..)<一>|<"1>$1|
     - xform|^<一>|<1>|
 
     - xform/<1>/ /
-    #- xform/<"1>/"/
+    - xform/<"1>/"/
 
     - xform/^.*<.+>.*$//
 
-  #  - xform=，="""",=
-  #  - xform=。="""".=
-  #  - xform=！=""""!=
-  #  - xform=？=""""?=
+    - xform=，="""",=
+    - xform=。="""".=
+    - xform=！=""""!=
+    - xform=？=""""?=
 
-  #prompt_format:
-  #  # 码元显示效果修正
-  #  - xform/"""",$/，/
-  #  - xform/""""\.$/。/
-  #  - xform/""""!$/！/
-  #  - xform/""""\?$/？/
+  prompt_format:
+    # 码元显示效果修正
+    - xform/"""",$/，/
+    - xform/""""\.$/。/
+    - xform/""""!$/！/
+    - xform/""""\?$/？/
 
