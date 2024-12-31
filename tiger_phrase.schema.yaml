@@ -49,7 +49,7 @@ speller:
   auto_clear: max_length
   auto_select: true
   max_code_length: 5
-  alphabet: ";'zyxwvutsrqponmlkjihgfedcbaUPOI[]/V"
+  alphabet: ";'zyxwvutsrqponmlkjihgfedcbaZYXWVUTSRQPONMLKJIHGFEDCBA[]/@"
   delimiter: "_'"
   auto_select_pattern: ^;\w+
   algebra:
@@ -68,13 +68,14 @@ translator:
   enable_completion: false
   preedit_format:
     # 手动分词标记
-    - xform/([a-z]{4})[P']/$1⁴/
-    - xform/([a-z]{3})[O']/$1³/
-    - xform/([a-z]{2})[I']/$1²/
-    - xform/([a-z]{1})[U']/$1¹/
+    #- xform/([a-z]{4})[P']/$1⁴/
+    #- xform/([a-z]{3})[O']/$1³/
+    #- xform/([a-z]{2})[I']/$1²/
+    #- xform/([a-z]{1})[U']/$1¹/
     # 自动分词标记
     - xform/([a-z]{1,4})[_]/$1␣/
     # 其余处理
+    - xform/([A-Z])/\L$1/
     - xform/([¹²³⁴][a-z]+)[_']/$1/
     - xform/([¹²³⁴])_/$1/
 

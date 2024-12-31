@@ -80,10 +80,10 @@ algebra:
       #- derive|^(\w)(\w)\[(\d)(\d)$|$1$2I|        # 短语匹配2码
       #- derive|^(\w)(\w)\[(\w)(\d)$|$1$2$3O|      # 短语匹配3码
       #- derive|^(\w)(\w)\[(\w)(\w)$|$1$2$3$4P|    # 短语匹配4码
-      - derive|^(\w{1})$|$1U|                     # 短语匹配1码
-      - derive|^(\w{2})$|$1I|                     # 短语匹配2码
-      - derive|^(\w{3})$|$1O|                     # 短语匹配3码
-      - derive|^(\w{4})$|$1P|                     # 短语匹配4码
+      #- derive|^(\w{1})$|$1U|                     # 短语匹配1码
+      #- derive|^(\w{2})$|$1I|                     # 短语匹配2码
+      #- derive|^(\w{3})$|$1O|                     # 短语匹配3码
+      #- derive|^(\w{4})$|$1P|                     # 短语匹配4码
 
   phrases:                                        # 虎词整句        
     __append:
@@ -193,7 +193,7 @@ switches_engine_table:
       - lua_filter@*hertz.easy_en*enhance_filter    # 英文增强
       - lua_filter@*hertz.embeded_cands@embeded_cands
       - lua_filter@*hertz.tiger_pin*pin_filter
-      - lua_filter@*hertz.prompt_filter
+      #- lua_filter@*hertz.prompt_filter
 
 switches_engine_script:
   switches:
@@ -254,7 +254,7 @@ switches_engine_script:
       - uniquifier                                  # 过滤重复的候选字，可能来自简繁转换
       - lua_filter@*hertz.easy_en*enhance_filter    # 英文增强
       - lua_filter@*hertz.tiger_pin*pin_filter
-      - lua_filter@*hertz.prompt_filter
+      #- lua_filter@*hertz.prompt_filter
 keys:
   emacs_mode:
     __append:
@@ -313,7 +313,7 @@ easy_en_translator:
     dictionary: easy_en
     tag: easy_en
     split_sentence: true
-    prefix: "'"
+    prefix: "'en"
     tips: "〔英文〕"
     enable_sentence: true
     enable_encoder: false
@@ -329,7 +329,7 @@ japanese_translator:
   japanese:
     dictionary: japanese
     tag: japanese
-    prefix: "J"
+    prefix: "'jp"
     tips: "〔日本語ローマ字〕"
     __include: dict_All_false
 
@@ -337,7 +337,7 @@ tiger_codes_translator:
   tiger_codes:
     dictionary: tiger_codes
     tag: tiger_codes
-    prefix: "D"
+    prefix: "'hc"
     tips: "〔官方虎词〕"
     __include: dict_All_false
 
@@ -345,7 +345,7 @@ tiger_oni_translator:
   tiger_oni:
     dictionary: tiger_oni
     tag: tiger_oni
-    prefix: "G"
+    prefix: "'gh"
     tips: "〔九重鬼虎〕"
     __include: dict_All_false
 
@@ -353,7 +353,7 @@ tiger_phrase_translator:
   tiger_phrase:
     __include: dicts
     tag: tiger_phrase
-    prefix: "H"
+    prefix: "'zj"
     tips: "〔赫兹虎单整句〕"
     __include: dict_All_false
     preedit_format:
@@ -372,7 +372,7 @@ tiger_phrases_translator:
   tiger_phrases:
     dictionary: tiger_phrases
     tag: tiger_phrases
-    prefix: "F"
+    prefix: "'cj"
     tips: "〔官方虎词整句〕"
     __include: dict_All_false
     preedit_format:
@@ -405,7 +405,7 @@ radical_flypy_translator:
   radical_flypy:
     dictionary: radical_flypy
     tag: radical_flypy
-    prefix: "R"
+    prefix: "'rf"
     tips: "〔鹤音拆字〕"
     enable_user_dict: false
     enable_charset_filter: false
@@ -459,13 +459,13 @@ rec:
     import_preset: default
     patterns:
       punct: '^/([0-9]0?|[A-Za-z]+)$'
-      easy_en: "^'[A-Z|a-z]*`?$"
-      japanese: "^J[_|A-Z|a-z|-]*`?$"
-      radical_flypy: "^R[a-z]*`?$"
-      tiger_codes: "^D[a-z]*`?$"
-      tiger_oni: "^G[a-z]*`?$"
-      tiger_phrase: "^H[a-zA-Z]*`?$"
-      tiger_phrases: "^F[a-zA-Z]*`?$"
+      easy_en: "^'en[A-Z|a-z]*`?$"
+      japanese: "^'jp[_|A-Z|a-z|-]*`?$"
+      radical_flypy: "^'rf[a-z]*`?$"
+      tiger_codes: "^'hc[a-z]*`?$"
+      tiger_oni: "^'gh[a-z]*`?$"
+      tiger_phrase: "^'zj[a-zA-Z]*`?$"
+      tiger_phrases: "^'cj[a-zA-Z]*`?$"
       reverse_lookup: "^`[a-z]*'?$"
       calculator: "^=.*$"
 

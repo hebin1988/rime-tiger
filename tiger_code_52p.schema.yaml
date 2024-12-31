@@ -54,7 +54,7 @@ speller:
     - match: "[a-z]{4}"
       accept: "[^ 2345]"
       prefix: 2
-  alphabet: "qwertyuoipasdfghjklzxcvbnm"
+  alphabet: "qwertyuoipasdfghjklzxcvbnm@"
   #auto_select_pattern: ^;.$ # |^\w{4}$
   algebra:
     __patch:
