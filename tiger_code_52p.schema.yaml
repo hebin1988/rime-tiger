@@ -17,8 +17,8 @@ schema:
     - tiger_oni
     - tiger_phrase
   description: |
-    虎码单字五二顶
-  name: "🐯字·五二顶"
+    🐯·单·五二顶
+  name: "🐯·单·五二顶"
   schema_id: tiger_code_52p
   version: "2024-12-14"
 

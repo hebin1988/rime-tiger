@@ -17,8 +17,8 @@ schema:
     - tiger_oni
     - tiger_phrases
   description: |
-    赫兹虎单整句
-  name: "🐯句·单"
+    🐯·单句
+  name: "🐯·单句"
   schema_id: tiger_phrase
   version: "2024-11-16"
 

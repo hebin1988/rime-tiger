@@ -10,7 +10,7 @@ octagram:
   disable:
     __patch:
       grammar: {}
-  enable_for_tiger: #参数较极端，仅适用于虎单整句方案，音码方案不建议尝试
+  enable_for_tiger: # 参数较极端，仅适用于虎单整句方案，音码方案不建议尝试
     __patch:
       grammar:
         language: zh-hans-t-tiger-ugc
@@ -25,7 +25,7 @@ octagram:
         max_homophones: 1
         max_homographs: 1
 
-  enable_for_chars: #参数较极端，仅适用于虎单整句方案，音码方案不建议尝试
+  enable_for_chars: # 参数较极端，仅适用于虎单整句方案，音码方案不建议尝试
     __patch:
       grammar:
         language: amz-v1-5-zh-hans

@@ -17,8 +17,8 @@ schema:
     - tiger_oni
     - tiger_phrase
   description: |
-    虎码单字
-  name: "🐯字·官方"
+    🐯·单·官方
+  name: "🐯·单·官方"
   schema_id: tiger_code
   version: "2024-10-31"
 

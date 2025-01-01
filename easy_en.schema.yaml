@@ -4,13 +4,13 @@
 
 schema:
   schema_id: easy_en
-  name: '英文'
+  name: '智能英文'
   version: "0.9.1"
   author:
     - Patrick <ipatrickmac@gmail.com>
     - BlindingDark <blindingdark@outlook.com>
   description:
-    Easy English
+    智能英文
 
 __include: tiger:/emoji_filter                 # Emoji 滤镜
 __include: tiger:/cn_en_filter                 # 中英滤镜

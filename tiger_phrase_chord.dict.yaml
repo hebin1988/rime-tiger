@@ -4,7 +4,7 @@
 
 ---
 name: tiger_phrase_chord
-version: "2024-12-28"
+version: "2025-01-01"
 sort: original
 import_tables:
   - dicts/hertz_tiger_chord   # 虎码11w+单字

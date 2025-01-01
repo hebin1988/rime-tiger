@@ -17,8 +17,8 @@ schema:
     - tiger_phrase
     - tiger_phrases
   description: |
-    官虎词库+鬼虎词库
-  name: "🐯词·鬼虎"
+    🐯·词·鬼虎
+  name: "🐯·词·鬼虎"
   schema_id: tiger_oni
   version: "2024-11-21"
 
