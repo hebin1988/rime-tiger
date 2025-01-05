@@ -289,3 +289,5 @@ app_options:
     ascii_mode: true
   com.microsoft.VSCode:
     ascii_mode: true
+  com.mitchellh.ghostty:
+    ascii_mode: true
