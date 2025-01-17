@@ -48,6 +48,24 @@ octagram:
         contextual_suggestions: true
         max_homophones: 7
         max_homographs: 7
+  enable_for_ympy:
+    __patch:
+      grammar:
+        language: amz-v1-5-zh-hans
+        collocation_max_length: 6
+        collocation_min_length: 4
+        collocation_penalty: -15
+        non_collocation_penalty: -2
+        weak_collocation_penalty: -23
+        rear_penalty: -18
+      translator/+:
+        contextual_suggestions: false
+        max_homophones: 7
+        max_homographs: 7
+      tiger_lookup/+:
+        contextual_suggestions: true
+        max_homophones: 4
+        max_homographs: 0
 
 ########################
 # 整句词库选择，只能选一个 #

@@ -61,7 +61,7 @@ preset_color_schemes:
     # #候选前编号标志字体
     label_font_face: "Segoe UI Emoji, 98WB-0, 98WB-1, 98WB-2, 98WB-3, 98WB-U, 98WB-V"
     label_font_point: 16 #候选前编号标志字号
-    candidate_list_layout: linear
+    candidate_list_layout: stacked
     candidate_format: '%c %@ '
     text_orientation: horizontal
     inline_preedit: false
@@ -113,7 +113,7 @@ preset_color_schemes:
     # #候选前编号标志字体
     label_font_face: "Segoe UI Emoji, 98WB-0, 98WB-1, 98WB-2, 98WB-3, 98WB-U, 98WB-V"
     label_font_point: 16 #候选前编号标志字号
-    candidate_list_layout: linear
+    candidate_list_layout: stacked
     candidate_format: '%c %@ '
     text_orientation: horizontal
     inline_preedit: false

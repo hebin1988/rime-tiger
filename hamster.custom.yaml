@@ -77,3 +77,6 @@ patch:
   "keyboard/enableKeySounds": false
   "keyboard/hapticFeedbackIntensity": 1
   "keyboard/hapticIntensity": 1.000
+
+  # Rime设置
+  "rime/overrideDictFiles": false

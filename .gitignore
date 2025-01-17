@@ -4,6 +4,7 @@
 /sync
 /theme
 /*.userdb
+bihua*
 build_predict
 default.custom.yaml
 installation.yaml
@@ -12,5 +13,7 @@ predict.txt
 sogou_pop.dict.yaml
 tiger_code.custom.yaml
 user.yaml
+v*.txt
+ym*
 *zh-hans.gram
 .DS_Store
